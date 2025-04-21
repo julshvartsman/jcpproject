@@ -14,34 +14,21 @@ from sklearn.model_selection import train_test_split
 
 
 st.title("Classification Model Dashboard")
+df_num = pd.read_csv('data/german.data-numeric', delim_whitespace=True, header=None)
+df_cat = pd.read_csv('data/german.data', delim_whitespace=True, header=None)
 
+st.write(df_num.head())
+st.write(df_num.describe())
+st.write(df_num.info())
+st.write(df_cat.head())
+st.write(df_cat.describe())
+st.write(df_cat.info())
 
 
 credit_data = fetch_ucirepo(id=144)
 X = credit_data.data.features
 y = credit_data.data.targets
-CREDIT_FEATURES = {
-    'Attribute1': 'status',
-    'Attribute2': 'duration',
-    'Attribute3': 'credit_history',
-    'Attribute4': 'purpose',
-    'Attribute5': 'credit_amount',
-    'Attribute6': 'savings',
-    'Attribute7': 'employment',
-    'Attribute8': 'installment_rate',
-    'Attribute9': 'personal_status',
-    'Attribute10': 'other_debtors',
-    'Attribute11': 'residence',
-    'Attribute12': 'property',
-    'Attribute13': 'age',
-    'Attribute14': 'other_installments',
-    'Attribute15': 'housing',
-    'Attribute16': 'existing_credits',
-    'Attribute17': 'job',
-    'Attribute18': 'dependents',
-    'Attribute19': 'telephone',
-    'Attribute20': 'foreign_worker'
-}    
+    
     
 st.subheader("Dataset Summary")
 try:
@@ -96,9 +83,3 @@ try:
 except Exception as e:
     st.error(f"An error occurred: {str(e)}")
 
-st.subheader("Feature Distribution")
-fig = plt.figure(figsize=(10,6))
-sns.histplot(X['credit_amount'], kde=True)
-st.pyplot(fig)
-st.write(credit_data.metadata)
-st.dataframe(credit_data.variables)
